@@ -29,8 +29,11 @@ body {
     color: white;
 }
 
-/*@media (min-width: 0px) and (max-width: 980px){*/
-/*    .main-container {*/
-/*        scale: 5;*/
-/*    }*/
-/*}*/
+@media (min-width: 0px) and (max-width: 980px){
+    .main-container {
+        scale: 5;
+    }
+    body{
+        grid-template-rows: 20% 50%;
+    }
+}

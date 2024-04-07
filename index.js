@@ -39,9 +39,7 @@ const createGameboard = (function () {
                         if (checkForWin()!== null){
                             dialogText.textContent = (`${checkForWin()} Wins`)
                         }
-                        console.log(checkForWin())
                     }
-                    console.log("Clicked index:", rowIndex, colIndex);
                 });
                 row.append(item);
             }
