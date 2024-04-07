@@ -1,0 +1,36 @@
+body {
+    display: grid;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+
+    grid-template-rows: 20% 60%;
+
+}
+
+.dialog-window{
+    text-align: center;
+    font-size: 8vh;
+}
+
+
+.main-container {
+    justify-content: center;
+    display: flex;
+    scale: 3;
+}
+
+.row > div {
+    background-color: cornflowerblue;
+    padding: 8px 8px 2px;
+    border: 2px solid black;
+
+    font-size: 24px;
+    color: white;
+}
+
+/*@media (min-width: 0px) and (max-width: 980px){*/
+/*    .main-container {*/
+/*        scale: 5;*/
+/*    }*/
+/*}*/

@@ -3,12 +3,52 @@ const createGameboard = (function () {
     const player2 = createPlayer('O', "arlan");
     let makingMove = player1;
     let board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-    const makeMove = function move(x, y) {
-        board[x - 1][y - 1] = makingMove.mark;
-        makingMove === player1 ? makingMove = player2 : makingMove = player1;
-        console.log(checkForWin())
+    const dialogText = document.querySelector('.dialog-window');
+    const makeBoard = function createPanels() {
+        const container = document.querySelector('.main-container');
+        for (let i = 0; i < 3; i++) {
+            const row = document.createElement('div');
+            row.classList.toggle('row');
+            const rowData = [];
+            for (let j = 0; j < 3; j++) {
+                const item = document.createElement('div');
+                const tile = document.createElement('img');
+                tile.src = 'static/null.svg';
+                item.append(tile);
+
+                const index = i + j * 3; // 1D index calculation
+
+                item.dataset.index = index;
+
+                item.addEventListener("click", () => {
+                    const rowIndex = Math.floor(index / 3);
+                    const colIndex = index % 3;
+
+                    if (board[rowIndex][colIndex] === 0) {
+                        board[rowIndex][colIndex] = makingMove.mark;
+                        if (makingMove.mark === 'X') {
+                            tile.src = 'static/X.svg';
+                        } else {
+                            tile.src = 'static/O.svg';
+                        }
+                        makingMove === player1 ? makingMove = player2 : makingMove = player1;
+                    }
+                    if (!new Set([].concat.apply([], board)).has(0)) {
+                        dialogText.textContent = "Draw"
+                    } else {
+                        if (checkForWin()!== null){
+                            dialogText.textContent = (`${checkForWin()} Wins`)
+                        }
+                        console.log(checkForWin())
+                    }
+                    console.log("Clicked index:", rowIndex, colIndex);
+                });
+                row.append(item);
+            }
+            container.append(row);
+        }
         return board;
-    };
+    }
     const checkForWin = function check() {
         // Checks rows
         for (let row = 0; row < 3; row++) {
@@ -42,19 +82,13 @@ const createGameboard = (function () {
         }
         return null;
     }
-    return {board, makeMove, checkForWin}
+    return {board, makeBoard, checkForWin}
 })();
 
 function createPlayer(mark, name) {
     return {mark, name}
 }
 
-// Test scenario
-console.log(createGameboard.makeMove(1, 1));
-
-console.log(createGameboard.makeMove(1, 2));
-console.log(createGameboard.makeMove(2, 1));
-console.log(createGameboard.makeMove(2, 2));
-console.log(createGameboard.makeMove(3, 1));
+createGameboard.makeBoard();
 
 
